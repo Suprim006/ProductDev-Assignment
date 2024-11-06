@@ -1,0 +1,61 @@
+<!-- templates/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini AI Chatbot</title>
+    <style>
+        #chatbox {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Gemini AI Chatbot</h1>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <input type="text" id="user-input" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        async function sendMessage() {
+            const userMessage = document.getElementById("user-input").value;
+            if (!userMessage.trim()) return;
+
+            // Display user message
+            document.getElementById("messages").innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+            document.getElementById("user-input").value = "";
+
+            // Send message to Gemini API
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage }),
+            });
+            const data = await response.json();
+            
+            // Display AI response
+            document.getElementById("messages").innerHTML += `<p><strong>AI:</strong> ${data.response}</p>`;
+            document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+        }
+    </script>
+</body>
+</html>
