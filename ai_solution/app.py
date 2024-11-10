@@ -1,17 +1,20 @@
 # app.py
 import os
 import requests
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, abort
+import google.generativeai as genai
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
 
 # Flask app setup
 app = Flask(__name__)
+CORS(app)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-API_URL = "https://api.gemini.com/v1/models/gemini-1.5-flash-latest:generateContent"  # Replace with the actual Gemini API chat endpoint
-HEADERS = {"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 @app.route("/")
 def index():
@@ -20,15 +23,16 @@ def index():
 @app.route("/chat", methods=["POST"])
 def chat():
     user_message = request.json.get("message")
-    response = requests.post(
-        API_URL,
-        headers=HEADERS,
-        json={"message": user_message}
-    )
+    if not user_message:
+        abort(400, description="No message provided")  # Handle empty message
 
-    if response.status_code == 200:
-        ai_response = response.json().get("response", "Sorry, I didn’t understand that.")
-    else:
+    chat = model.start_chat()
+    response = chat.send_message(user_message)
+    ai_response = response.text
+
+    print(ai_response)
+
+    if ai_response is None:
         ai_response = "Sorry, there was an issue with the AI model."
 
     return jsonify({"response": ai_response})

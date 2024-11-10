@@ -26,7 +26,13 @@
             margin-top: 5px;
             font-size: 1em;
         }
+        .loading {
+            font-style: italic;
+            color: gray;
+        }
     </style>
+    <!-- Include marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <h1 style="text-align: center;">Gemini AI Chatbot</h1>
@@ -43,18 +49,26 @@
             // Display user message
             document.getElementById("messages").innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
             document.getElementById("user-input").value = "";
+            document.getElementById("messages").innerHTML += `<p class="loading">Loading...</p>`; // Loading indicator
 
-            // Send message to Gemini API
-            const response = await fetch("/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage }),
-            });
-            const data = await response.json();
-            
-            // Display AI response
-            document.getElementById("messages").innerHTML += `<p><strong>AI:</strong> ${data.response}</p>`;
-            document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+            try {
+                // Send message to Gemini API
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+                const data = await response.json();
+                
+                // Display AI response with Markdown parsing
+                const aiResponseHtml = marked(data.response); // Convert Markdown to HTML
+                document.getElementById("messages").innerHTML += `<p><strong>AI:</strong> ${aiResponseHtml}</p>`;
+            } catch (error) {
+                document.getElementById("messages").innerHTML += `<p><strong>Error:</strong> Unable to get response from AI.</p>`;
+            } finally {
+                document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+                document.querySelector(".loading").remove(); // Remove loading indicator
+            }
         }
     </script>
 </body>
