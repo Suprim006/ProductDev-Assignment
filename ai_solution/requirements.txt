@@ -3,3 +3,8 @@ requests
 python-dotenv
 flask_cors
 google-generativeai
+flask-sqlalchemy
+flask-login
+flask-migrate
+psycopg2-binary
+werkzeug
