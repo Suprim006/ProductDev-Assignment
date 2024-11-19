@@ -6,7 +6,8 @@ chat_bp = Blueprint("chat", __name__)
 
 @chat_bp.route("/")
 def index():
-    return render_template("chat.html")
+    return render_template("index.html")
+    # return render_template("chat.html")
 
 @chat_bp.route("/chat", methods=["POST"])
 def chat():

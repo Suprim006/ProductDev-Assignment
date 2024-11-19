@@ -7,12 +7,11 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from app.config import Config
 from app.routes import register_blueprints
-from app.models.models import init_db
+from app.models.models import db, init_db
 
 # Load environment variables
 load_dotenv()
 
-db = SQLAlchemy()
 login_manager = LoginManager()
 migrate = Migrate()
 
