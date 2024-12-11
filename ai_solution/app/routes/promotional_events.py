@@ -24,7 +24,17 @@ def create_event():
 
 @event_bp.route('/events', methods=['GET'])
 def get_events():
-    events = PromotionalEvent.query.all()
+    # Update the is_upcoming status for all events
+    PromotionalEvent.update_is_upcoming()
+
+    is_filterby_upcomming_events = request.args.get('filter')
+
+    if is_filterby_upcomming_events is not None:
+        is_filterby_upcomming_events = is_filterby_upcomming_events.lower() == 'true'
+        events = PromotionalEvent.get_events(is_filterby_upcomming_events)
+    else:
+        events = PromotionalEvent.query.all()
+
     result = [
         {
             'id': event.id,

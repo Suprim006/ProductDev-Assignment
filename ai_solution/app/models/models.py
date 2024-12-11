@@ -9,9 +9,9 @@ db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128))
+    username = db.Column(db.String(256), unique=True, nullable=False)  # Increased length
+    email = db.Column(db.String(256), unique=True, nullable=False)     # Increased length
+    password_hash = db.Column(db.String(256))                          # Increased length
     role = db.Column(db.String(20), nullable=False, default='customer')  # admin, user, customer
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     is_active = db.Column(db.Boolean, default=True)
@@ -46,7 +46,11 @@ class ContactInquiry(db.Model):
     company_name = db.Column(db.String(100))
     country = db.Column(db.String(50))
     job_title = db.Column(db.String(50))
-    job_details = db.Column(db.Text, nullable=False)
+    job_details = db.Column(db.Text, nullable=True)
+    company_location = db.Column(db.String(50), nullable=True)
+    interested_product = db.Column(db.String(50), nullable=True)
+    current_solution = db.Column(db.Text, nullable=True)
+    inquiry_reason = db.Column(db.Text, nullable = True)
     submission_date = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(20), default='Pending')
 
@@ -99,6 +103,20 @@ class PromotionalEvent(db.Model):
     @staticmethod
     def get_events(is_upcoming):
         return PromotionalEvent.query.filter_by(is_upcoming=is_upcoming).all()
+    
+    @staticmethod
+    def update_is_upcoming():
+        """Update events to mark them as not upcoming if the current date has passed the event start date."""
+        current_date = datetime.utcnow()
+        events_to_update = PromotionalEvent.query.filter(
+            PromotionalEvent.event_start_date < current_date,
+            PromotionalEvent.is_upcoming == True
+        ).all()
+
+        for event in events_to_update:
+            event.is_upcoming = False
+        
+        db.session.commit()
 
 
 class Article(db.Model):

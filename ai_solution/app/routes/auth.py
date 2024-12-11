@@ -13,7 +13,7 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@auth_bp.route('/api/register', methods=['POST'])
+@auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     
@@ -27,7 +27,7 @@ def register():
     user = User(
         username=data['username'],
         email=data['email'],
-        role='customer'  # Default role
+        role=data.get('role', 'customer')  # Default role
     )
     user.set_password(data['password'])
     
@@ -36,10 +36,10 @@ def register():
     
     return jsonify({'message': 'Registration successful'}), 201
 
-@auth_bp.route('/api/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(email=data['email']).first()
     
     if user and user.check_password(data['password']):
         login_user(user)
@@ -54,13 +54,13 @@ def login():
     
     return jsonify({'error': 'Invalid credentials'}), 401
 
-@auth_bp.route('/api/logout')
+@auth_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
     return jsonify({'message': 'Logout successful'})
 
-@auth_bp.route('/api/users', methods=['GET'])
+@auth_bp.route('/users', methods=['GET'])
 @admin_required
 def get_users():
     users = User.query.all()
@@ -74,7 +74,7 @@ def get_users():
         } for user in users]
     })
 
-@auth_bp.route('/api/users/<int:user_id>/role', methods=['PUT'])
+@auth_bp.route('/users/<int:user_id>/role', methods=['PUT'])
 @admin_required
 def update_user_role(user_id):
     data = request.get_json()
