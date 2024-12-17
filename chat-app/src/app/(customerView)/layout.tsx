@@ -4,7 +4,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/(customerView)/Header";
 import Footer from "@/components/(customerView)/Footer";
-import ScrollToTop from "@/components/(customerView)/ScrollToTop";;
+import ScrollToTop from "@/components/(customerView)/ScrollToTop";
+import FloatingChatbot from "@/components/(customerView)/Chat/FloatingChatBot"; // Import the new chatbot component
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -24,11 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Header />
-            {children}
+          {children}
           <Footer />
           <ScrollToTop />
+          <FloatingChatbot /> {/* Add the floating chatbot */}
       </body>
     </html>
   );
