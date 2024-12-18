@@ -25,12 +25,14 @@ def get_feedbacks():
         {
             'id': feedback.id,
             'customer_id': feedback.customer_id,
+            'customer_name': feedback.customer.username,  # Get customer name
             'feedback_text': feedback.feedback_text,
             'rating': feedback.rating,
             'feedback_date': feedback.feedback_date
         } for feedback in feedbacks
     ]
     return jsonify(result), 200
+
 
 @feedback_bp.route('/feedbacks/<int:id>', methods=['PUT'])
 def update_feedback(id):

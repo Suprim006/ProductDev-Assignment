@@ -70,6 +70,8 @@ class Solution(db.Model):
     image_url = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    customer = db.relationship('User', backref='solutions', lazy=True)
+
     @staticmethod
     def get_by_industry(industry):
         return Solution.query.filter_by(industry=industry).all()
@@ -83,6 +85,8 @@ class CustomerFeedback(db.Model):
                        CheckConstraint('rating >= 1 AND rating <= 5', name='check_rating_range'),
                        nullable=True)  # Set nullable to True if you want to allow no rating
     feedback_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    customer = db.relationship('User', backref='feedbacks', lazy=True)
 
     @staticmethod
     def get_average_rating(customer_id):
@@ -127,6 +131,8 @@ class Article(db.Model):
     published_date = db.Column(db.DateTime, default=datetime.utcnow)
     category = db.Column(db.String(50))
     image_url = db.Column(db.String(255))
+    
+    author = db.relationship('User', backref='articles', lazy=True)
 
     @staticmethod
     def get_events(category):

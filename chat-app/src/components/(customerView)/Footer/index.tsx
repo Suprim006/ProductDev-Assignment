@@ -4,7 +4,10 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#213555] text-[#F5EFE7] py-12">
+    <footer className="bg-[#F5EFE7] text-[#213555] py-12">
+
+      <div className="mt-12 pt-6 border-t border-[#3E5879] text-center"></div>
+
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description Column */}
@@ -20,7 +23,7 @@ const Footer = () => {
                 />
               </div>
             </Link>
-            <p className="text-[#D8C4B6] text-sm mb-6">
+            <p className="text-[#213555] text-sm mb-6">
               Empowering businesses with cutting-edge AI solutions that transform challenges into opportunities.
             </p>
             
@@ -37,7 +40,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#F5EFE7] hover:text-[#D8C4B6] transition-colors duration-300"
+                  className="text-[#3E5879] hover:text-[#213555] transition-colors duration-300"
                 >
                   {/* Replace with actual SVG icons or use an icon library */}
                   <svg 
@@ -65,7 +68,7 @@ const Footer = () => {
 
           {/* Quick Links Column */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-[#D8C4B6]">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-6 text-[#213555]">Quick Links</h3>
             <ul className="space-y-3">
               {[
                 { name: 'Home', href: '/' },
@@ -76,7 +79,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     href={link.href} 
-                    className="text-[#F5EFE7] hover:text-[#D8C4B6] transition-colors duration-300"
+                    className="text-[#3E5879] hover:text-[#213555] transition-colors duration-300"
                   >
                     {link.name}
                   </Link>
@@ -87,7 +90,7 @@ const Footer = () => {
 
           {/* Services Column */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-[#D8C4B6]">Services</h3>
+            <h3 className="text-xl font-semibold mb-6 text-[#213555]">Services</h3>
             <ul className="space-y-3">
               {[
                 { name: 'AI Consulting', href: '/services/consulting' },
@@ -98,7 +101,7 @@ const Footer = () => {
                 <li key={service.name}>
                   <Link 
                     href={service.href} 
-                    className="text-[#F5EFE7] hover:text-[#D8C4B6] transition-colors duration-300"
+                    className="text-[#3E5879] hover:text-[#213555] transition-colors duration-300"
                   >
                     {service.name}
                   </Link>
@@ -109,8 +112,8 @@ const Footer = () => {
 
           {/* Contact Column */}
           <div>
-            <h3 className="text-xl font-semibold mb-6 text-[#D8C4B6]">Contact Us</h3>
-            <div className="space-y-3 text-[#F5EFE7]">
+            <h3 className="text-xl font-semibold mb-6 text-[#213555]">Contact Us</h3>
+            <div className="space-y-3 text-[#3E5879]">
               <p>123 AI Street</p>
               <p>Tech City, Innovation Park</p>
               <p>Email: contact@aisolution.com</p>
@@ -121,7 +124,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="mt-12 pt-6 border-t border-[#3E5879] text-center">
-          <p className="text-sm text-[#D8C4B6]">
+          <p className="text-sm text-[#213555]">
             © {new Date().getFullYear()} AI Solution. All Rights Reserved.
           </p>
         </div>

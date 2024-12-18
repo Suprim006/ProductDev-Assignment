@@ -29,11 +29,14 @@ def get_articles():
             'title': article.title,
             'content': article.content,
             'author_id': article.author_id,
+            'author_name': article.author.username, 
             'category': article.category,
-            'published_date': article.published_date
+            'published_date': article.published_date,
+            'image_url': article.image_url
         } for article in articles
     ]
     return jsonify(result), 200
+
 
 @article_bp.route('/articles/<int:id>', methods=['PUT'])
 def update_article(id):

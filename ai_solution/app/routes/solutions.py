@@ -28,14 +28,17 @@ def get_solutions():
         {
             'id': solution.id,
             'customer_id': solution.customer_id,
+            'customer_name': solution.customer.username,  # Get customer name
             'title': solution.title,
             'description': solution.description,
             'industry': solution.industry,
             'key_features': solution.key_features,
-            'image_url': solution.image_url
+            'image_url': solution.image_url,
+            'created_at': solution.created_at
         } for solution in solutions
     ]
     return jsonify(result), 200
+
 
 @solution_bp.route('/solutions/<int:id>', methods=['PUT'])
 def update_solution(id):

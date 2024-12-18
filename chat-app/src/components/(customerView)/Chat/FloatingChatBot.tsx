@@ -1,11 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, MessageCircle, X } from 'lucide-react';
+import { Send, MessageCircle, X, Bot } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 const FloatingChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ text: string; sender: string; }[]>([]);
+  const [messages, setMessages] = useState<{ text: string; sender: string; }[]>([
+    // Add initial welcome message
+    {
+      text: "Hello! I'm your virtual AI assistant. How can I help you today?",
+      sender: 'ai'
+    }
+  ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -72,7 +78,7 @@ const FloatingChatbot: React.FC = () => {
       }]);
     } catch (error) {
       setMessages(prev => [...prev, {
-        text: 'Sorry, there was an error getting the response.',
+        text: 'Sorry, there was an error getting the response. Please try again.',
         sender: 'error'
       }]);
     } finally {
@@ -106,11 +112,14 @@ const FloatingChatbot: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.3 }}
-            className="absolute bottom-20 left-0 w-80 bg-white rounded-xl shadow-2xl border border-[#D8C4B6]"
+            className="absolute bottom-20 left-0 w-[500px] bg-white rounded-xl shadow-2xl border border-[#D8C4B6]"
           >
             {/* Chat Header */}
             <div className="bg-[#213555] text-white p-4 rounded-t-xl flex justify-between items-center">
-              <h2 className="text-lg font-semibold">AI Chatbot</h2>
+              <div className="flex items-center space-x-2">
+                <Bot className="w-6 h-6" />
+                <h2 className="text-lg font-semibold">AI Virtual Assistant</h2>
+              </div>
               <button 
                 onClick={() => setIsOpen(false)}
                 className="hover:bg-[#3E5879] p-1 rounded-full"
@@ -120,7 +129,7 @@ const FloatingChatbot: React.FC = () => {
             </div>
 
             {/* Chat Messages */}
-            <div className="h-96 overflow-y-auto p-4 space-y-3 bg-[#F5EFE7]">
+            <div className="h-[500px] overflow-y-auto p-4 space-y-3 bg-[#F5EFE7]">
               {messages.map((message, index) => (
                 <div 
                   key={index} 
@@ -131,9 +140,12 @@ const FloatingChatbot: React.FC = () => {
                   <div 
                     className={`
                       max-w-[80%] p-3 rounded-lg 
-                      ${message.sender === 'user' 
-                        ? 'bg-[#3E5879] text-white' 
-                        : 'bg-white border border-[#D8C4B6] text-[#213555]'
+                      ${
+                        message.sender === 'user' 
+                          ? 'bg-[#3E5879] text-white' 
+                          : message.sender === 'error'
+                            ? 'bg-red-100 text-red-800 border border-red-200'
+                            : 'bg-white border border-[#D8C4B6] text-[#213555]'
                       }
                     `}
                   >
@@ -170,6 +182,7 @@ const FloatingChatbot: React.FC = () => {
                   className="
                     flex-1 p-2 border border-[#D8C4B6] rounded-lg 
                     focus:outline-none focus:ring-2 focus:ring-[#3E5879]
+                    text-gray-800 placeholder-gray-500
                   "
                 />
                 <button

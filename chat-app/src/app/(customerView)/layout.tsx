@@ -27,7 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Header />
-          {children}
+          <div className="pt-16"> {/* Add padding top */}
+            {children}
+          </div>
           <Footer />
           <ScrollToTop />
           <FloatingChatbot /> {/* Add the floating chatbot */}
