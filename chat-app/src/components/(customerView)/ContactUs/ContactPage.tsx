@@ -153,7 +153,7 @@ const ContactPage = () => {
             Get in Touch
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 text-black">
             {/* Basic Information */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -246,10 +246,70 @@ const ContactPage = () => {
               </div>
             </div>
 
+            <div>
+                <label htmlFor="company_location" className="block text-[#3E5879] mb-2">
+                  Company Location
+                </label>
+                <div className="flex items-center border rounded">
+                  <MapPin className="ml-3 text-[#3E5879]" size={20} />
+                  <input
+                    type="text"
+                    id="company_location"
+                    name="company_location"
+                    value={formData.company_location}
+                    onChange={handleInputChange}
+                    className="w-full p-2 pl-2 outline-none"
+                    placeholder="Location"
+                  />
+                </div>
+            </div>
+
+            <div>
+              <label 
+                htmlFor="interested_product" 
+                className="block text-[#3E5879] mb-2"
+              >
+                Interested Product
+              </label>
+              <div className="flex items-center border rounded">
+                <Briefcase className="ml-3 text-[#3E5879]" size={20} />
+                <input
+                  type="text"
+                  id="interested_product"
+                  name="interested_product"
+                  value={formData.interested_product}
+                  onChange={handleInputChange}
+                  className="w-full p-2 pl-2 outline-none"
+                  placeholder="Specify the product of interest"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label 
+                htmlFor="current_solution" 
+                className="block text-[#3E5879] mb-2"
+              >
+                Current Solution
+              </label>
+              <div className="flex items-center border rounded">
+                <Briefcase className="ml-3 text-[#3E5879]" size={20} />
+                <input
+                  type="text"
+                  id="current_solution"
+                  name="current_solution"
+                  value={formData.current_solution}
+                  onChange={handleInputChange}
+                  className="w-full p-2 pl-2 outline-none"
+                  placeholder="Describe your current solution"
+                />
+              </div>
+            </div>
+
             {/* Inquiry Details */}
             <div>
               <label 
-                htmlFor="job_details" 
+                htmlFor="inquiry_detail" 
                 className="block text-[#3E5879] mb-2"
               >
                 Inquiry Details *
@@ -257,9 +317,9 @@ const ContactPage = () => {
               <div className="flex items-start border rounded">
                 <MessageSquare className="ml-3 mt-3 text-[#3E5879]" size={20} />
                 <textarea
-                  id="job_details"
-                  name="job_details"
-                  value={formData.job_details}
+                  id="inquiry_detail"
+                  name="inquiry_detail"
+                  value={formData.inquiry_reason}
                   onChange={handleInputChange}
                   required
                   rows={4}

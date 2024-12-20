@@ -6,3 +6,5 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 
         'postgresql://postgres:suprim00@localhost:5432/pd_assignment_ai_solution')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    CORS_HEADERS = 'Content-Type'
+    CORS_SUPPORTS_CREDENTIALS = True

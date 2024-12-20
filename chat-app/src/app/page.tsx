@@ -1,6 +1,10 @@
-// src/app/page.tsx
-import CustomerPage from './(customerView)/page'; // Reuse customerView page
+import CustomerPage from './(customerView)/page';
+import CustomerLayout from './(customerView)/layout';
 
 export default function HomePage() {
-    return <CustomerPage />;
+  return (
+    <CustomerLayout>
+      <CustomerPage />
+    </CustomerLayout>
+  );
 }
