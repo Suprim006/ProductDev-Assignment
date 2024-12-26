@@ -28,6 +28,28 @@ interface Feedback {
   feedback_date: string;
 }
 
+
+const imageList = [
+  "/images/articles/pexels-cottonbro-6153345.jpg",
+  "/images/articles/pexels-googledeepmind-17483868.jpg",
+  "/images/articles/pexels-kindelmedia-8566445.jpg",
+
+  "/images/articles/pexels-pavel-danilyuk-8439089.jpg",
+  "/images/articles/pexels-sanketgraphy-16587314.jpg",
+  "/images/articles/pexels-santesson89-17325393.jpg",
+
+  "/images/articles/pexels-shvetsa-5614108.jpg",
+  "/images/articles/pexels-tara-winstead-8849277.jpg",
+  "/images/articles/pexels-zamanisahudi-101764.jpg"
+];
+
+// Function to get a random image
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * imageList.length);
+  return imageList[randomIndex];
+};
+
+
 const PortfolioPage = () => {
   const [solutions, setSolutions] = useState<Solution[]>([]);
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
@@ -129,7 +151,7 @@ const PortfolioPage = () => {
               <div className="h-48 bg-[#3E5879] flex items-center justify-center">
                 {solution.image_url ? (
                   <img 
-                    src={solution.image_url} 
+                    src={getRandomImage()}
                     alt={solution.title} 
                     className="w-full h-full object-cover"
                   />

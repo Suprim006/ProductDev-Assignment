@@ -18,7 +18,7 @@ const HeroSection: React.FC = () => {
     {
       title: "AI Powered Chatbot",
       description: "Revolutionize your customer interaction with our cutting-edge AI-powered chatbot, leveraging the advanced Gemini language model enhanced by Retrieval-Augmented Generation (RAG) technology. This intelligent solution dynamically adapts to your specific company's knowledge base, providing contextually rich and precisely tailored responses. By seamlessly integrating your unique organizational data, our chatbot goes beyond generic interactions, offering deep, nuanced insights that reflect your company's specific terminology, processes, and customer experience. The RAG implementation ensures that each interaction is not just intelligent, but intimately aligned with your business's core knowledge, creating a personalized AI assistant that understands and represents your brand with unprecedented accuracy and depth.",
-      image: "/images/ai-chatbot.svg" // Placeholder image path
+      image: "" // Placeholder image path
     }
   ];
 
@@ -74,7 +74,7 @@ const HeroSection: React.FC = () => {
           >
             <div className="aspect-w-4 aspect-h-3 w-full max-w-sm">
               <img 
-                src="/images/ai-hero-illustration.svg" 
+                src="/images/pexels-googledeepmind-17483868.jpg" 
                 alt="AI Solution Illustration"
                 className="w-full h-full object-cover rounded-lg"
               />

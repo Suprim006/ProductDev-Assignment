@@ -11,6 +11,26 @@ interface Article {
   published_date: string;
 }
 
+const imageList = [
+  "/images/articles/pexels-cottonbro-6153345.jpg",
+  "/images/articles/pexels-googledeepmind-17483868.jpg",
+  "/images/articles/pexels-kindelmedia-8566445.jpg",
+
+  "/images/articles/pexels-pavel-danilyuk-8439089.jpg",
+  "/images/articles/pexels-sanketgraphy-16587314.jpg",
+  "/images/articles/pexels-santesson89-17325393.jpg",
+
+  "/images/articles/pexels-shvetsa-5614108.jpg",
+  "/images/articles/pexels-tara-winstead-8849277.jpg",
+  "/images/articles/pexels-zamanisahudi-101764.jpg"
+];
+
+// Function to get a random image
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * imageList.length);
+  return imageList[randomIndex];
+};
+
 const ArticlesPage = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +97,7 @@ const ArticlesPage = () => {
             {/* Placeholder Image - Replace with actual image logic */}
             <div className="w-1/3 bg-[#3E5879] flex items-center justify-center">
               <img 
-                src="/api/placeholder/400/300" 
+                src={getRandomImage()} 
                 alt={article.title} 
                 className="object-cover w-full h-full"
               />
