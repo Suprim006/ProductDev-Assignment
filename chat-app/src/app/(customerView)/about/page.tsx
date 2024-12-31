@@ -5,7 +5,7 @@ import AboutPage from '@/components/(customerView)/About/AboutPage'; // Adjust t
 
 export default function ArticlesPageWrapper() {
   return (
-    <div className="bg-[#F5EFE7]">
+    <div className="bg-[#F5EFE7] p-4 mt-4">
       <AboutPage />
     </div>
   );

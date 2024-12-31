@@ -50,7 +50,7 @@ const Header = () => {
       <div className="container">
         <div className="relative -mx-4 flex items-center justify-between">
           {/* Logo Section - Left Side */}
-          <div className="w-60 max-w-full px-4 xl:mr-12">
+          <div className="w-60 max-w-full px-4 xl:mr-12 ml-8">
             <Link
               href="/"
               className={`header-logo block w-full ${
@@ -58,22 +58,24 @@ const Header = () => {
               } flex items-center`}
             >
               <Image
-                src="/images/logo/logo-2.svg"
+                src="/images/logo/AI-Solutions.svg"
                 alt="logo"
                 width={40}
                 height={40}
                 className="mr-2"
               />
-              <span className={`font-bold text-[#F5EFE7] text-xl transition-all duration-300 ${
-                sticky ? "hidden" : "block"
-              }`}>
-                Ai Solution
+              {/* <span className={`font-bold text-[#F5EFE7] text-xl transition-all duration-300 ${
+                sticky ? "hidden" : "block"}
+              `}> */}
+              
+              <span className={`font-bold text-[#F5EFE7] text-xl transition-all duration-300`}>
+                AI Solution
               </span>
-              <span className={`font-bold text-[#F5EFE7] text-xl transition-all duration-300 ${
+              {/* <span className={`font-bold text-[#F5EFE7] text-xl transition-all duration-300 ${
                 sticky ? "block" : "hidden"
               }`}>
                 AI
-              </span>
+              </span> */}
             </Link>
           </div>
 

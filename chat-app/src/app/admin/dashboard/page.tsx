@@ -10,12 +10,24 @@ import {
   BarChart2,
   PieChart,
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 interface Event {
   date: string;
   event_name: string;
 }
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-2 border border-gray-200 rounded shadow-sm">
+        <p className="text-sm font-medium text-[#213555]">{`${label}`}</p>
+        <p className="text-sm text-gray-600">{`Count: ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -29,16 +41,15 @@ export default function Dashboard() {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    // Fetch aggregate data from the backend
     axios.get('http://127.0.0.1:5000/api/dashboard')
       .then(response => setStats(response.data))
       .catch(error => console.error('Error fetching overview data:', error));
 
-      fetch('http://127.0.0.1:5000/api/inquiries/status')
+    fetch('http://127.0.0.1:5000/api/inquiries/status')
       .then((res) => res.json())
       .then((data) => setBarChartData(data));
 
-      fetch('http://127.0.0.1:5000/api/inquiries/timeline')
+    fetch('http://127.0.0.1:5000/api/inquiries/timeline')
       .then((res) => res.json())
       .then((data) => {
         setTimelineData(data.timeline);
@@ -99,52 +110,72 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold text-[#213555] mb-4">Inquiries by Status</h3>
-          {/* Placeholder for Bar Chart */}
-          {/* Bar Chart */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-[#213555] mb-4">Inquiries by Status</h3>
-            <BarChart
-              width={600}
-              height={300}
-              data={barChartData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis dataKey="status" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="count" fill="#213555" />
-            </BarChart>
+          <div className="w-full h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={barChartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                barSize={40}
+              >
+                <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                <XAxis 
+                  dataKey="status" 
+                  tick={{ fill: '#213555', fontSize: 12 }}
+                  tickLine={{ stroke: '#213555' }}
+                />
+                <YAxis 
+                  tick={{ fill: '#213555', fontSize: 12 }}
+                  tickLine={{ stroke: '#213555' }}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <Bar 
+                  dataKey="count" 
+                  fill="#3E5879"
+                  radius={[4, 4, 0, 0]}
+                >
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold text-[#213555] mb-4">Solutions by Industry</h3>
-          {/* Timeline Chart */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-[#213555] mb-4">Customer Inquiries Timeline</h3>
-            <div className="relative w-full overflow-x-auto">
+          <h3 className="text-lg font-semibold text-[#213555] mb-4">Customer Inquiries Timeline</h3>
+          <div className="w-full h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
               <LineChart
-                width={800} // Dynamically adjust based on data
-                height={300}
                 data={timelineData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                <XAxis 
+                  dataKey="date" 
+                  tick={{ fill: '#213555', fontSize: 12 }}
+                  tickLine={{ stroke: '#213555' }}
+                />
+                <YAxis 
+                  tick={{ fill: '#213555', fontSize: 12 }}
+                  tickLine={{ stroke: '#213555' }}
+                />
                 <Tooltip />
-                <Line type="monotone" dataKey="count" stroke="#213555" />
+                <Line 
+                  type="monotone" 
+                  dataKey="count" 
+                  stroke="#3E5879" 
+                  strokeWidth={2}
+                  dot={{ fill: '#213555', stroke: '#3E5879', strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, fill: '#3E5879' }}
+                />
               </LineChart>
-            </div>
-            {/* Flags for events */}
-            <div className="mt-4">
-              <h4 className="text-md font-medium text-[#3E5879] mb-2">Events</h4>
-              {events.map((event, index) => (
-                <p key={index} className="text-sm text-gray-600">
-                  {event.date}: {event.event_name}
-                </p>
-              ))}
-            </div>
+            </ResponsiveContainer>
+          </div>
+          {/* Events */}
+          <div className="mt-4">
+            <h4 className="text-md font-medium text-[#3E5879] mb-2">Events</h4>
+            {events.map((event, index) => (
+              <p key={index} className="text-sm text-gray-600">
+                {event.date}: {event.event_name}
+              </p>
+            ))}
           </div>
         </div>
       </div>

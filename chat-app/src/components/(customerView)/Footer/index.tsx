@@ -15,7 +15,7 @@ const Footer = () => {
             <Link href="/" className="inline-block mb-4">
               <div className="flex items-center">
                 <Image
-                  src="/images/logo/logo-white.svg"
+                  src="/images/logo/AI-Solutions.svg"
                   alt="AI Solution Logo"
                   width={140}
                   height={40}
@@ -114,10 +114,10 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold mb-6 text-[#213555]">Contact Us</h3>
             <div className="space-y-3 text-[#3E5879]">
-              <p>123 AI Street</p>
-              <p>Tech City, Innovation Park</p>
-              <p>Email: contact@aisolution.com</p>
-              <p>Phone: +1 (555) 123-4567</p>
+              <p>Sunderland, UK</p>
+              <p>Support Email: support@ai-solution.com</p>
+              <p>Sales Email: sales@ai-solution.com</p>
+              <p>Phone:  +44 (0) 1234 567890</p>
             </div>
           </div>
         </div>

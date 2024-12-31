@@ -5,7 +5,7 @@ import ContactPage from '@/components/(customerView)/ContactUs/ContactPage'; // 
 
 export default function ArticlesPageWrapper() {
   return (
-    <div className="bg-[#F5EFE7]">
+    <div className="bg-[#F5EFE7] p-4 mt-4">
       <ContactPage />
     </div>
   );

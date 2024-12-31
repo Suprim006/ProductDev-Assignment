@@ -128,7 +128,7 @@ const ContactPage = () => {
               <Phone className="mr-4" size={24} />
               <div>
                 <p className="font-semibold">Support Phone</p>
-                <p>+1 (555) 123-4567</p>
+                <p>+44 (0) 1234 567890</p>
               </div>
             </div>
             
@@ -136,7 +136,7 @@ const ContactPage = () => {
               <MapPin className="mr-4" size={24} />
               <div>
                 <p className="font-semibold">Address</p>
-                <p>123 AI Street, Tech City, Country</p>
+                <p>Sunderland, UK</p>
               </div>
             </div>
           </div>
@@ -309,19 +309,18 @@ const ContactPage = () => {
             {/* Inquiry Details */}
             <div>
               <label 
-                htmlFor="inquiry_detail" 
+                htmlFor="inquiry_reason" 
                 className="block text-[#3E5879] mb-2"
               >
-                Inquiry Details *
+                Inquiry Details
               </label>
               <div className="flex items-start border rounded">
                 <MessageSquare className="ml-3 mt-3 text-[#3E5879]" size={20} />
                 <textarea
-                  id="inquiry_detail"
-                  name="inquiry_detail"
+                  id="inquiry_reason"
+                  name="inquiry_reason"
                   value={formData.inquiry_reason}
                   onChange={handleInputChange}
-                  required
                   rows={4}
                   className="w-full p-2 pl-2 outline-none resize-none"
                   placeholder="Please provide details about your inquiry..."

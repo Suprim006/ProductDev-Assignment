@@ -36,6 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: 'Manage Events', href: '/admin/events', icon: <Calendar size={20} /> },
     { label: 'Past Solutions', href: '/admin/solutions', icon: <Briefcase size={20} /> },
     { label: 'Settings', href: '/admin/settings', icon: <Settings size={20} /> },
+    { label: 'Customer Feedbacks', href: '/admin/feedbacks', icon: <MessageSquare size={20} /> },
   ];
 
   useEffect(() => {

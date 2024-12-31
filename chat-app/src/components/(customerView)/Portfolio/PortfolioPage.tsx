@@ -149,17 +149,11 @@ const PortfolioPage = () => {
             >
               {/* Solution Image */}
               <div className="h-48 bg-[#3E5879] flex items-center justify-center">
-                {solution.image_url ? (
-                  <img 
+                <img 
                     src={getRandomImage()}
                     alt={solution.title} 
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="text-white opacity-50">
-                    <Target size={64} />
-                  </div>
-                )}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               {/* Solution Details */}
