@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 
 // Updated menu data with new navigation links
 const menuData = [
+  { title: "Home", path: "/" },
   { title: "Articles", path: "/articles" },
   { title: "Events", path: "/events" },
+  { title: "Gallery", path: "/gallery" },
   { title: "Portfolio", path: "/portfolio" },
   { title: "About Us", path: "/about" },
-  { title: "Contact Us", path: "/contact" }
+  { title: "Contact Us", path: "/contact" },
+  { title: "Admin", path: "/admin" },
 ];
 
 const Header = () => {

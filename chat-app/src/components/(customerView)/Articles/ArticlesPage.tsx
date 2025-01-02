@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Clock, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface Article {
   id: number;
@@ -35,6 +36,7 @@ const ArticlesPage = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -65,6 +67,10 @@ const ArticlesPage = () => {
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const handleReadMore = (articleId: number) => {
+    router.push(`/articles/${articleId}`);
   };
 
   if (isLoading) {
@@ -131,6 +137,7 @@ const ArticlesPage = () => {
 
               {/* Read More Button */}
               <button 
+                onClick={() => handleReadMore(article.id)}
                 className="
                   bg-[#213555] text-white 
                   px-4 py-2 rounded-lg 

@@ -63,7 +63,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     try {
       document.cookie = 'session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       localStorage.removeItem('user');
-      router.push('/admin/login');
+      router.push('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }

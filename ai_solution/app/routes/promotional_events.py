@@ -67,3 +67,21 @@ def delete_event(id):
     db.session.delete(event)
     db.session.commit()
     return jsonify({'message': 'Event deleted successfully!'}), 200
+
+@event_bp.route('/events/<int:id>', methods=['GET'])
+def get_event_by_id(id):
+    try:
+        event = PromotionalEvent.query.get_or_404(id)
+        result = {
+            'id': event.id,
+            'event_name': event.event_name,
+            'event_description': event.event_description,
+            'event_start_date': event.event_start_date,
+            'event_end_date': event.event_end_date,
+            'location': event.location,
+            'image_url': event.image_url,
+            'is_upcoming': event.is_upcoming
+        }
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': f'Event not found: {str(e)}'}), 404

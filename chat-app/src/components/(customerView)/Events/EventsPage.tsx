@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, MapPin } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface Event {
   id: number;
@@ -33,6 +34,7 @@ const getRandomImage = () => {
 };
 
 const EventsPage = () => {
+  const router = useRouter();
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -87,6 +89,10 @@ const EventsPage = () => {
   // Toggle between all events and upcoming events
   const toggleEventFilter = () => {
     setShowUpcomingOnly(!showUpcomingOnly);
+  };
+
+  const handleLearnMore = (eventId: number) => {
+    router.push(`/events/${eventId}`);
   };
 
   if (isLoading) {
@@ -188,6 +194,7 @@ const EventsPage = () => {
 
                 {/* Learn More Button */}
                 <button 
+                  onClick={() => handleLearnMore(event.id)}
                   className="
                     bg-[#213555] text-white 
                     px-4 py-2 rounded-lg 

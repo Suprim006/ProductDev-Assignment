@@ -55,3 +55,21 @@ def delete_article(id):
     db.session.delete(article)
     db.session.commit()
     return jsonify({'message': 'Article deleted successfully!'}), 200
+
+@article_bp.route('/articles/<int:id>', methods=['GET'])
+def get_article_by_id(id):
+    try:
+        article = Article.query.get_or_404(id)
+        result = {
+            'id': article.id,
+            'title': article.title,
+            'content': article.content,
+            'author_id': article.author_id,
+            'author_name': article.author.username,
+            'category': article.category,
+            'published_date': article.published_date,
+            'image_url': article.image_url
+        }
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': f'Article not found: {str(e)}'}), 404
